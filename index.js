@@ -6,23 +6,23 @@ const {
     readLine
 } = require('./console');
 
-var name_len = 4;
-var date_len = 4;
-var comm_len = 7;
-var file_len = 8;
-var arrFilesNames = [];
-var arrComment = ["comment"];
-var arrName = ["user"];
-var arrDate = ["date"];
-var arrImp = [1];
-var arrFile = ["fileName"];
+let name_len = 4;
+let date_len = 4;
+let comm_len = 7;
+let file_len = 8;
+let arrFilesNames = [];
+let arrComment = ["comment"];
+let arrName = ["user"];
+let arrDate = ["date"];
+let arrImp = [1];
+let arrFile = ["fileName"];
 
 app();
 
 function app() {
     const files = getFiles();
     getFilesNames();
-    devideInFiveArrays(files);
+    divideInFiveArrays(files);
     console.log('Please, write your command!');
     readLine(processCommand);
 }
@@ -38,14 +38,14 @@ function getFilesNames() {
         arrFilesNames.push(filePath.replace(process.cwd() + "/", ""));
 }
 
-function devideInFiveArrays(files) {
+function divideInFiveArrays(files) {
     const commPattern = /.*\/\/\s*todo\s*(?::|\s)\s*/i;
     const quotePattern = /(?:(["'])\1)|(?:(['"]).*?[^\\]\2)/; //поиск "" '' в строке
     const todoPattern = /\/\/\s*todo/i;
-    var datePosition = -1;
-    var commPosition = -1;
-    var counter = 1;
-    var arrFileString = [];
+    let datePosition = -1;
+    let commPosition = -1;
+    let counter = 1;
+    let arrFileString = [];
     for (let i = 0; i < files.length; i++) {
         arrFileString = files[i].split("\n");
         for (let j = 0; j < arrFileString.length; j++) {
@@ -190,7 +190,7 @@ function processCommand(command) {
 }
 
 function show() {
-    var arrOutput = [];
+    let arrOutput = [];
     for (let i = 0; i < arrComment.length; i++) {
         if (arrName[i].length > name_len)
             name_len = arrName[i].length;
@@ -221,8 +221,8 @@ function show() {
 }
 
 function important() {
-    var arrOutput = [];
-    var counter = 0;
+    let arrOutput = [];
+    let counter = 0;
     for (let i = 0; i < arrComment.length; i++) {
         if (arrName[i].length > name_len && arrImp[i] !== 0)
             name_len = arrName[i].length;
@@ -251,9 +251,9 @@ function important() {
 }
 
 function user(command) {
-    var arrOutput = [];
-    var regexp = new RegExp(command, "i");
-    var counter = 1;
+    let arrOutput = [];
+    let regexp = new RegExp(command, "i");
+    let counter = 1;
     for (let i = 0; i < arrComment.length; i++) {
         if (arrName[i].search(regexp) === 0) {
             if (arrName[i].length > name_len)
@@ -294,8 +294,8 @@ function user(command) {
 }
 
 function progSort(command) {
-    var list = [];
-    var arrOutput = [];
+    let list = [];
+    let arrOutput = [];
     for (let i = 0; i < arrComment.length; i++) {
         if (arrName[i].length > name_len)
             name_len = arrName[i].length;
@@ -369,9 +369,9 @@ function progSort(command) {
 }
 
 function date(command) {
-    var arrOutput = [];
-    var msUTC = Date.parse(command);
-    var counter = 1;
+    let arrOutput = [];
+    let msUTC = Date.parse(command);
+    let counter = 1;
     for (let i = 0; i < arrComment.length; i++) {
         if (msUTC <= Date.parse(arrDate[i])) {
             if (arrName[i].length > name_len)
@@ -414,9 +414,9 @@ function date(command) {
 }
 
 function writeLine(Output) {
-    var stringLength = Output[0].length;
-    var firstArrElem = Output.splice(0, 1);
-    var ifArrNotNull = Output[0] === undefined ? '' : ('\n' + Output.join('\n') + '\n' +
+    let stringLength = Output[0].length;
+    let firstArrElem = Output.splice(0, 1);
+    let ifArrNotNull = Output[0] === undefined ? '' : ('\n' + Output.join('\n') + '\n' +
     												   '-'.repeat(Output[0].length));
     console.log(firstArrElem + '\n' + '-'.repeat(stringLength) + ifArrNotNull);
 }
